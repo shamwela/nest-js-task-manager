@@ -25,7 +25,17 @@ export class TaskService {
   }
 
   update(id: string, updateTaskDto: UpdateTaskDto) {
-    // update the task in this class according to the id passed
-    return this.tasks.map((task) => (task.id === id ? updateTaskDto : task))
+    // Update the task in this class according to the id passed
+    return this.tasks.map((task) => {
+      if (task.id === id) {
+        const newTask = { id, ...updateTaskDto }
+        return newTask
+      }
+      return task
+    })
+  }
+
+  remove(id: string) {
+    return this.tasks.filter((task) => task.id !== id)
   }
 }
